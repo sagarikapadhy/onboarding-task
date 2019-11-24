@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/Customnavbar.css")
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+</head>
+<body>
+                 
+                <div class="topnavbar">
+                    <ul class="topnav">
+                        <li>@Html.ActionLink("Customers", "Index", "Customer")</li>
+                        <li>@Html.ActionLink("Products", "Index", "Product")</li>
+                        <li>@Html.ActionLink("Stores", "Index", "Stores")</li>
+                        <li>@Html.ActionLink("Sales", "Index", "Sales")</li>
+                    </ul>
+                </div>
+           
+    <div class="container body-content">
+        @RenderBody()
+        
+       
+    </div>
+
+    
+  
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
