@@ -314,21 +314,21 @@ export default class Sale extends React.Component {
                     <Header content="Create Customer" as="h3" />
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Select fluid label='Customer' name="customerId"  onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
+                            <Form.Select fluid label='Customer' name="customerId" required  onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
                                 return {
                                     key: cs.Id,
                                     text: cs.Name,
                                     value: cs.Id
                                 }
                             })} />
-                            <Form.Select fluid label='Products' name="productId" onChange={this.handleChange} options={this.state.listOfProducts.map(pd => {
+                            <Form.Select fluid label='Products' name="productId" required onChange={this.handleChange} options={this.state.listOfProducts.map(pd => {
                                 return {
                                     key: pd.Id,
                                     text: pd.Name,
                                     value: pd.Id
                                 }
                             })} />
-                            <Form.Select fluid label='Stores' name="storeId" onChange={this.handleChange} options={this.state.listOfStores.map(s => {
+                            <Form.Select fluid label='Stores' name="storeId" required onChange={this.handleChange} options={this.state.listOfStores.map(s => {
                                 return {
                                     key: s.Id,
                                     text: s.Name,
@@ -350,21 +350,21 @@ export default class Sale extends React.Component {
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Input value={this.state.activeSaleId} type="hidden" name="activeProductId" />
-                            <Form.Select fluid label='Customer' name="customerId" placeholder={this.state.customerName} onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
+                            <Form.Select fluid label='Customer' name="customerId" required placeholder={this.state.customerName} onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
                                 return {
                                     key: cs.Id,
                                     text: cs.Name,
                                     value: cs.Id
                                 }
                             })} />
-                            <Form.Select fluid label='Products' name="productId" placeholder={this.state.productName} onChange={this.handleChange} options={this.state.listOfProducts.map(pd => {
+                            <Form.Select fluid label='Products' name="productId" required placeholder={this.state.productName} onChange={this.handleChange} options={this.state.listOfProducts.map(pd => {
                                 return {
                                     key: pd.Id,
                                     text: pd.Name,
                                     value: pd.Id
                                 }
                             })} />
-                            <Form.Select fluid label='Stores' name="storeId" placeholder={this.state.storeName} onChange={this.handleChange} options={this.state.listOfStores.map(s => {
+                            <Form.Select fluid label='Stores' name="storeId" required placeholder={this.state.storeName} onChange={this.handleChange} options={this.state.listOfStores.map(s => {
                                 return {
                                     key: s.Id,
                                     text: s.Name,

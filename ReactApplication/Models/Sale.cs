@@ -11,13 +11,17 @@ namespace ReactApplication.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
 
     public partial class Sale
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         public int ProductId { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         public int CustomerId { get; set; }
+        [Required(ErrorMessage = "This field is required")]
         public int StoreId { get; set; }
         public System.DateTime DateSold { get; set; }
 

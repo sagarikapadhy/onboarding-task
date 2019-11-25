@@ -11,6 +11,7 @@ namespace ReactApplication.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
 
     public partial class Product

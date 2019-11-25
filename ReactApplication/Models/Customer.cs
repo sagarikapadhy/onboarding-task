@@ -11,6 +11,7 @@ namespace ReactApplication.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using Newtonsoft.Json;
     public partial class Customer
     {
@@ -21,7 +22,10 @@ namespace ReactApplication.Models
         }
     
         public int Id { get; set; }
+        [Required(ErrorMessage = "Name id is required")]
+        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Only Alphabets allowed.")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Address id is required")]
         public string Address { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

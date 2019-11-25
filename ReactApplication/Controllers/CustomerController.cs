@@ -55,19 +55,26 @@ namespace ReactApplication.Controllers
    //     [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Address")] Customer customer)
         {
-            if (customer.Id == 0)
+            if (ModelState.IsValid)
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (customer.Id == 0)
+                {
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    db.Entry(customer).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
             }
             else
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
+                return Json(customer, "json");
             }
+            return Json(customer, "json");
 
-            return View(customer);
         }
 
         // GET: Customer/Edit/5

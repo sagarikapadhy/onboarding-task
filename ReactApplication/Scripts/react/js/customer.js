@@ -6,6 +6,7 @@ import { faTrash, faEdit, faPlusSquare } from "@fortawesome/free-solid-svg-icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
+import CreateCustomerModal from '../createcustomer.js';
 
 
 export default class Cust extends React.Component {
@@ -22,8 +23,7 @@ export default class Cust extends React.Component {
             listOfCustomers: [],
             activeCustomerId: 0,
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.getAllCustomerData = this.getAllCustomerData.bind(this);
+ 
     }
 
     openModalHandler = () => {
@@ -65,8 +65,7 @@ export default class Cust extends React.Component {
     closeModalHandler = () => {
         this.setState({
             isShowing: false
-        });
-
+        });       
     }
 
     handleChange = (e) => {
@@ -244,7 +243,7 @@ export default class Cust extends React.Component {
                     </table>
                 </React.Fragment>
 
-                <Modal size='tiny' open={this.state.isShowing} >
+                <Modal size='tiny' open={this.state.isShowing}>
                     <Header content="Create Customer" as="h3" />
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
@@ -258,6 +257,7 @@ export default class Cust extends React.Component {
                     </Modal.Content>
 
                 </Modal>
+               
 
                 <Modal size='tiny' open={this.state.show}>
                     <Modal.Header>Delete Customer</Modal.Header>
@@ -275,8 +275,8 @@ export default class Cust extends React.Component {
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Input value={this.state.activeCustomerId} type="hidden" name="activeCustomerId" />
-                            <Form.Input label="Name" value={this.state.customerName} type="text" name="customerName" onChange={this.handleChange} />
-                            <Form.Input label="Address" value={this.state.customerAddress} type="text" name="customerAddress" onChange={this.handleChange} />
+                            <Form.Input label="Name" value={this.state.customerName} type="text" required name="customerName" onChange={this.handleChange} />
+                            <Form.Input label="Address" value={this.state.customerAddress} type="text" required name="customerAddress" onChange={this.handleChange} />
 
                             <Button color="black" content="Close" onClick={this.closeEditModal} />
                             <Button color="teal" type="primary" htmlType="submit">Edit</Button>

@@ -22,8 +22,7 @@ export default class Store extends React.Component {
             listOfStores: [],
             activeStoreId: 0,
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.getAllStoreData = this.getAllStoreData.bind(this);
+       
     }
 
     openCreateModal = () => {
@@ -75,6 +74,13 @@ export default class Store extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+    componentDidUpdate = (prevProps, prevState) => {
+        if ((this.state.listOfStores !== prevState.listOfStores) && prevState.listOfStores.length > 0) {
+
+            this.getAllStoreData();
+
+        }
     }
 
     handleSubmit = (e) => {
@@ -242,7 +248,7 @@ export default class Store extends React.Component {
                             <Form.Input label="Name" value={this.state.storeName} required type="text" name="storeName" placeholder="Name" onChange={this.handleChange} />
                             <Form.Input label="Address" value={this.state.storeAddress} required type="text" name="storeAddress" placeholder="Address" onChange={this.handleChange} />
 
-                            <Button color="black" content="Close" onClick={this.closeCreateModal}><i class="sign in icon"></i></Button>
+                            <Button color="black" content="Close" onClick={this.closeCreateModal}></Button>
                             <Button color="teal" type="primary" htmlType="submit">Create</Button>
 
                         </Form>
@@ -265,9 +271,9 @@ export default class Store extends React.Component {
                     <Header content="Edit Store" as="h3" />
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Input value={this.state.activeStoreId} type="hidden" name="activeStoreId" />
-                            <Form.Input label="Name" value={this.state.storeName} type="text" name="storeName" onChange={this.handleChange} />
-                            <Form.Input label="Address" value={this.state.storeAddress} type="text" name="storeAddress" onChange={this.handleChange} />
+                            <Form.Input value={this.state.activeStoreId} type="hidden"  name="activeStoreId" />
+                            <Form.Input label="Name" value={this.state.storeName} type="text" required name="storeName" onChange={this.handleChange} />
+                            <Form.Input label="Address" value={this.state.storeAddress} type="text" required name="storeAddress" onChange={this.handleChange} />
 
                             <Button color="black" content="Close" onClick={this.closeEditModal} />
                             <Button color="teal" type="primary" htmlType="submit">Edit</Button>

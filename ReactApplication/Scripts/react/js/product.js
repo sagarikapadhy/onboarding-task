@@ -23,8 +23,7 @@ export default class Product extends React.Component {
             activeProductId: 0,
 
         }
-        this.handleChange = this.handleChange.bind(this);
-        this.getAllProductDetails = this.getAllProductDetails.bind(this);
+        
     }
 
     openCreateModal = () => {
@@ -76,6 +75,14 @@ export default class Product extends React.Component {
         this.setState({
             [name]: value
         });
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if ((this.state.listOfProducts !== prevState.listOfProducts) && prevState.listOfProducts.length > 0) {
+
+            this.getAllProductDetails()
+
+        }
     }
 
     handleSubmit = (e) => {
@@ -246,7 +253,7 @@ export default class Product extends React.Component {
                             <Form.Input label="Name" value={this.state.productName} required type="text" name="productName" placeholder="Name" onChange={this.handleChange} />
                             <Form.Input label="Price" value={this.state.productPrice} required type="text" name="productPrice" placeholder="Price" onChange={this.handleChange} />
 
-                            <Button color="black" content="Close" onClick={this.closeCreateModal}><i class="sign in icon"></i></Button>
+                            <Button color="black" content="Close" onClick={this.closeCreateModal}></Button>
                             <Button color="teal" type="primary" htmlType="submit">Create</Button>
 
                         </Form>
@@ -258,9 +265,9 @@ export default class Product extends React.Component {
                     <Header content="Edit Product" as="h3" />
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
-                            <Form.Input value={this.state.activeProductId} type="hidden" name="activeProductId" />
-                            <Form.Input label="Name" value={this.state.productName} type="text" name="productName" onChange={this.handleChange} />
-                            <Form.Input label="Address" value={this.state.productPrice} type="text" name="productPrice" onChange={this.handleChange} />
+                            <Form.Input value={this.state.activeProductId} type="hidden" required name="activeProductId" />
+                            <Form.Input label="Name" value={this.state.productName} type="text" required name="productName" onChange={this.handleChange} />
+                            <Form.Input label="Address" value={this.state.productPrice} type="text" required name="productPrice" onChange={this.handleChange} />
 
                             <Button color="black" content="Close" onClick={this.closeEditModal} />
                             <Button color="teal" type="primary" htmlType="submit">Edit</Button>
