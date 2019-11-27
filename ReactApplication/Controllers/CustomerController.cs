@@ -14,12 +14,13 @@ namespace ReactApplication.Controllers
     {
         private OnboardingTaskEntities1 db = new OnboardingTaskEntities1();
 
-        // GET: Customer
+        
         public ActionResult Index()
         {
             return View(db.Customers.ToList());
         }
 
+        // GET: Customer list
         public JsonResult getAllCustomer()
         {
             IList<Customer> customerList = new List<Customer>();
@@ -42,17 +43,8 @@ namespace ReactApplication.Controllers
             return View(customer);
         }
 
-        // GET: Customer/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Customer/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Customer/Create      
         [HttpPost]
-   //     [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Address")] Customer customer)
         {
             if (ModelState.IsValid)
@@ -68,10 +60,6 @@ namespace ReactApplication.Controllers
                     db.Entry(customer).State = EntityState.Modified;
                     db.SaveChanges();
                 }
-            }
-            else
-            {
-                return Json(customer, "json");
             }
             return Json(customer, "json");
 
@@ -95,7 +83,6 @@ namespace ReactApplication.Controllers
 
         // POST: Customer/Delete/5
         [HttpPost, ActionName("Delete")]
-  //      [ValidateAntiForgeryToken]
         public JsonResult DeleteConfirmed(int id)
         {
             Customer customer = db.Customers.Find(id);
@@ -104,22 +91,5 @@ namespace ReactApplication.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-
-        [HttpPost]
-        public String Check(Customer cust)
-        {
-            
-
-            return cust.Name;
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }

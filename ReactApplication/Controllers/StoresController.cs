@@ -14,12 +14,13 @@ namespace ReactApplication.Controllers
     {
         private OnboardingTaskEntities1 db = new OnboardingTaskEntities1();
 
-        // GET: Stores
+        
         public ActionResult Index()
         {
             return View(db.Stores.ToList());
         }
 
+        // GET: Stores list
         public JsonResult getAllStores()
         {
             IList<Store> storeList = new List<Store>();           
@@ -41,11 +42,6 @@ namespace ReactApplication.Controllers
             }
         }
 
-        // GET: Stores/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
         // POST: Stores/Create
         [HttpPost]
@@ -77,13 +73,6 @@ namespace ReactApplication.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }

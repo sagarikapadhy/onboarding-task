@@ -14,13 +14,14 @@ namespace ReactApplication.Controllers
     {
         private OnboardingTaskEntities1 db = new OnboardingTaskEntities1();
 
-        // GET: Sales
+        
         public ActionResult Index()
         {
             var sales = db.Sales.Include(s => s.Customer).Include(s => s.Product).Include(s => s.Store);
             return View(sales.ToList());
         }
 
+        // GET: Sales
         public ActionResult getAllSales()
         {
             IList<Sale> salesList = new List<Sale>();
@@ -66,21 +67,10 @@ namespace ReactApplication.Controllers
 
             return Json(saleTable, JsonRequestBehavior.AllowGet);
         }
+       
 
-        // GET: Sales/Create
-        public ActionResult Create()
-        {
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name");
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name");
-            ViewBag.StoreId = new SelectList(db.Stores, "Id", "Name");
-            return View();
-        }
-
-        // POST: Sales/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Sales/Create        
         [HttpPost]
- //       [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ProductId,CustomerId,StoreId,DateSold")] Sale sale)
         {
             if (sale.Id == 0)
@@ -98,25 +88,10 @@ namespace ReactApplication.Controllers
 
            
         }
-
-        // GET: Sales/Edit/5
-        public ActionResult Edit(int id)
-        {
-            
-            Sale sale = db.Sales.Find(id);
-            if (sale == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Name", sale.CustomerId);
-            ViewBag.ProductId = new SelectList(db.Products, "Id", "Name", sale.ProductId);
-            ViewBag.StoreId = new SelectList(db.Stores, "Id", "Name", sale.StoreId);
-            return View(sale);
-        }
+        
 
         // POST: Sales/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,ProductId,CustomerId,StoreId,DateSold")] Sale sale)
@@ -133,24 +108,10 @@ namespace ReactApplication.Controllers
             return View(sale);
         }
 
-        // GET: Sales/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Sale sale = db.Sales.Find(id);
-            if (sale == null)
-            {
-                return HttpNotFound();
-            }
-            return View(sale);
-        }
+        
 
         // POST: Sales/Delete/5
         [HttpPost, ActionName("Delete")]
- //       [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Sale sale = db.Sales.Find(id);
@@ -159,13 +120,6 @@ namespace ReactApplication.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
     }
 }
