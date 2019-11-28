@@ -38,6 +38,7 @@ namespace ReactApplication.Controllers
                 saleTable.CustomerName = names[0];
                 saleTable.ProductName = names[1];
                 saleTable.StoreName = names[2];
+                saleTable.DateSold = sale.DateSold.ToString("dd-MM-yyyy");
                 salesWithNavigationProperties.Add(saleTable);
             }
             
@@ -64,6 +65,7 @@ namespace ReactApplication.Controllers
             saleTable.ProductId = sale.ProductId;
             saleTable.CustomerId = sale.CustomerId;
             saleTable.StoreId = sale.StoreId;
+            saleTable.DateSold = sale.DateSold.ToString("dd-MM-yyyy");
 
             return Json(saleTable, JsonRequestBehavior.AllowGet);
         }

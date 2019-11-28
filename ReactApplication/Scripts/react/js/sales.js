@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Link } from "react-router-dom";
 import { Modal, Form, Header, Button, Icon, Font } from "semantic-ui-react";
 import { faTrash,faTimes,faEdit,faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import DateTimePicker from 'react-datetime-picker';
+import {DateInput,DateTimeInput} from 'semantic-ui-calendar-react';
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
 
@@ -23,6 +25,7 @@ export default class Sale extends React.Component {
             customerName: '',
             productName: '',
             storeName: '',
+            date: new Date(),
             listOfCustomers: [],
             listOfProducts: [],
             listOfStores: [],
@@ -99,6 +102,12 @@ export default class Sale extends React.Component {
         })
     }
 
+    onChange = (event, { name, value }) => {
+        if (this.state.hasOwnProperty(name)) {
+            this.setState({ [name]: value });
+        }
+    }
+
     componentDidUpdate() {
         this.getAllSalesData();
     }
@@ -167,7 +176,8 @@ export default class Sale extends React.Component {
                     storeId: res.data.StoreId,
                     customerName: res.data.CustomerName,
                     productName: res.data.ProductName,
-                    storeName: res.data.StoreName
+                    storeName: res.data.StoreName,
+                    date: res.data.DateSold
                 });
                 console.log(res.data)
             })
@@ -187,7 +197,7 @@ export default class Sale extends React.Component {
             productId: this.state.productId,
             customerId: this.state.customerId,
             storeId: this.state.storeId,
-            dateSold: new Date()
+            dateSold: this.state.date
         }
 
         axios({
@@ -253,6 +263,7 @@ export default class Sale extends React.Component {
                         <td className="two wide" style={{ height: '20%' }}>{sale.CustomerName}</td>
                         <td className="two wide" >{sale.ProductName}</td>
                         <td className="two wide" >{sale.StoreName}</td>
+                        <td className="two wide" >{sale.DateSold}</td>
                         <td className="two wide" >
                             <Button color="orange" onClick={() => this.openEditModal(sale.Id)} >
                                 <FontAwesomeIcon icon={faEdit} />Edit
@@ -274,6 +285,8 @@ export default class Sale extends React.Component {
                             <td className="two wide" style={{ height: '20%' }}>{sale.CustomerName}</td>
                             <td className="two wide" >{sale.ProductName}</td>
                             <td className="two wide" >{sale.StoreName}</td>
+                            <td className="two wide" >{sale.StoreName}</td>
+                            <td className="two wide" >{sale.DateSold}</td>
                             <td className="two wide" >
                                 <Button color="orange" content="Edit" onClick={() => this.openEditModal(sale.Id)}/>
                                 <Button color="red" content="Delete" onClick={() => this.openDeleteModal(sale.Id)}/>
@@ -295,12 +308,13 @@ export default class Sale extends React.Component {
                 </button>
 
                 <React.Fragment>
-                    <table className="ui striped table" style={{ width: '75%' }}>
+                    <table className="ui striped table" style={{ width: '85%' }}>
                         <thead>
                             <tr>
                                 <th className="two wide">Customer</th>
                                 <th className="two wide">Product</th>
                                 <th className="two wide">Store</th>
+                                <th className="two wide">Date</th>
                                 <th className="two wide">Actions</th>
                             </tr>
                         </thead>
@@ -314,6 +328,8 @@ export default class Sale extends React.Component {
                     <Header content="Create Customer" as="h3" />
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
+                            
+                            <DateInput name="date" placeholder="Date Time" value={this.state.date}  onChange={this.onChange} />
                             <Form.Select fluid label='Customer' name="customerId" required  onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
                                 return {
                                     key: cs.Id,
@@ -350,6 +366,7 @@ export default class Sale extends React.Component {
                     <Modal.Content>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Input value={this.state.activeSaleId} type="hidden" name="activeProductId" />
+                            <DateInput name="date" placeholder="Date Time" value={this.state.date} onChange={this.onChange} />
                             <Form.Select fluid label='Customer' name="customerId" required placeholder={this.state.customerName} onChange={this.handleChange} options={this.state.listOfCustomers.map(cs => {
                                 return {
                                     key: cs.Id,
